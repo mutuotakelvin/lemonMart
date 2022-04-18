@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser'
   selector: 'app-root',
   template: `
     <mat-toolbar color="primary">
+      <button mat-icon-button><mat-icon>menu</mat-icon></button>
       <mat-icon svgIcon="lemon"></mat-icon>
       <a mat-button routerLink="/home"><h1>LemonMart</h1></a>
     </mat-toolbar>
