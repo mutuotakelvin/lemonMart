@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser'
       <button mat-icon-button><mat-icon>menu</mat-icon></button>
       <mat-icon svgIcon="lemon"></mat-icon>
       <a mat-button routerLink="/home"><h1>LemonMart</h1></a>
+      <span class="flex-spacer"></span>
     </mat-toolbar>
     <router-outlet></router-outlet>
   `,
