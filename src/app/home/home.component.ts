@@ -12,7 +12,9 @@ import { Component, OnInit } from '@angular/core'
   template: `
     <div fxLayout="column" fxLayoutAlign="center center">
       <span class="mat-display-2">Hello, Kelvin!</span>
-      <button mat-raised-button color="primary">Login</button>
+      <button mat-raised-button color="primary" routerLink="/manager">
+        Login as manager
+      </button>
     </div>
   `,
 })
