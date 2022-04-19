@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core'
 import { Routes } from '@angular/router'
 
 import { ManagerHomeComponent } from './manager-home/manager-home.component'
+import { ManagerRoutingModule } from './manager-routing.module'
 
-export const managerModuleRoutes: Routes = [{ path: '', component: ManagerHomeComponent }]
 @NgModule({
   declarations: [ManagerHomeComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, ManagerRoutingModule],
 })
 export class ManagerModule {}
