@@ -6,10 +6,11 @@ import { AppMaterialModule } from './../app-material.module'
 import { ManagerHomeComponent } from './manager-home/manager-home.component'
 import { ManagerRoutingModule } from './manager-routing.module'
 import { ManagerComponent } from './manager.component';
-import { UserManagementComponent } from './user-management/user-management.component'
+import { UserManagementComponent } from './user-management/user-management.component';
+import { ReceiptLookupComponent } from './receipt-lookup/receipt-lookup.component'
 
 @NgModule({
-  declarations: [ManagerHomeComponent, ManagerComponent, UserManagementComponent],
+  declarations: [ManagerHomeComponent, ManagerComponent, UserManagementComponent, ReceiptLookupComponent],
   imports: [CommonModule, ManagerRoutingModule, AppMaterialModule],
 })
 export class ManagerModule {}
