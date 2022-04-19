@@ -16,5 +16,5 @@ body {
   margin-right: 16px;
 }
 .flex-spacer {
-  flex: 1 1auto;
+  flex: 1 1 auto;
 }
