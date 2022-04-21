@@ -8,10 +8,11 @@ import { AppMaterialModule } from './app-material.module'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home/home.component'
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component'
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
+  declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NavigationMenuComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
