@@ -88,4 +88,11 @@ export class User implements IUser {
     }
     return `${this.name.first} ${this.name.last}`
   }
+
+  toJSON(): object {
+    const serialized = Object.assign(this)
+    delete serialized._id
+    delete serialized.fullName
+    return serialized
+  }
 }
