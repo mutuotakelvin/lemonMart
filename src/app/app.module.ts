@@ -7,12 +7,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppMaterialModule } from './app-material.module'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
+import { AuthService } from './auth/auth.service'
+import { InMemoryAuthService } from './auth/inmemory.service'
 import { HomeComponent } from './home/home.component'
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component'
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NavigationMenuComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    NavigationMenuComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,7 +28,12 @@ import { NavigationMenuComponent } from './navigation-menu/navigation-menu.compo
     HttpClientModule,
     FlexLayoutModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthService,
+      useClass: InMemoryAuthService,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
