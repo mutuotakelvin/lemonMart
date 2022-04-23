@@ -28,6 +28,17 @@ export interface IAuthService {
   getToken(): string
 }
 @Injectable()
-export abstract class AuthService {
+export abstract class AuthService implements IAuthService {
   constructor() {}
+  authStatus$!: BehaviorSubject<IAuthStatus>
+  currentUser$!: BehaviorSubject<IUser>
+  login(email: string, password: string): Observable<void> {
+    throw new Error('Method not implemented.')
+  }
+  logout(clearToken?: boolean): void {
+    throw new Error('Method not implemented.')
+  }
+  getToken(): string {
+    throw new Error('Method not implemented.')
+  }
 }
