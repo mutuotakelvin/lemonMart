@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 
-import { IUser } from '../user/user/user'
+import { IUser, User } from '../user/user/user'
 import { Role } from './auth.enum'
 
 export interface IAuthStatus {
@@ -30,8 +30,8 @@ export interface IAuthService {
 @Injectable()
 export abstract class AuthService implements IAuthService {
   constructor() {}
-  authStatus$!: BehaviorSubject<IAuthStatus>
-  currentUser$!: BehaviorSubject<IUser>
+  readonly authStatus$ = new BehaviorSubject<IAuthStatus>(defaultAuthStatus)
+  readonly currentUser$ = new BehaviorSubject<IUser>(new User())
   login(email: string, password: string): Observable<void> {
     throw new Error('Method not implemented.')
   }
