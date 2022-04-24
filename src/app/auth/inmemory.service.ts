@@ -2,12 +2,36 @@ import { Injectable } from '@angular/core'
 import { sign } from 'fake-jwt-sign'
 import { Observable, of, throwError } from 'rxjs'
 
-import { User } from '../user/user/user'
+import { PhoneType, User } from '../user/user/user'
 import { Role } from './auth.enum'
 import { AuthService, IAuthStatus, IServerAuthResponse } from './auth.service'
 
 @Injectable()
 export class InMemoryAuthService extends AuthService {
+  private defaultUser = User.Build({
+    _id: '5da01751da27cc462d265913',
+    email: 'kelvin@gmail.com',
+    name: { first: 'Kelvin', last: 'Mutuota' },
+    picture: 'https://avatars.githubusercontent.com/u/64194262?v=4',
+    role: Role.Manager,
+    dateOfBirth: new Date(1998, 8, 3),
+    userStatus: true,
+    address: {
+      line1: 'CP',
+      city: 'Machakos',
+      state: 'Dere',
+      zip: '11111',
+    },
+    level: 2,
+    phones: [
+      {
+        id: 0,
+        type: PhoneType.Mobile,
+        digits: '0712704936',
+      },
+    ],
+  })
+
   protected authProvider(
     email: string,
     password: string
