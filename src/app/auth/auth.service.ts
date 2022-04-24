@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, catchError, filter, throwError } from 'rxj
 import { transformError } from '../common/common'
 import { IUser, User } from '../user/user/user'
 import { Role } from './auth.enum'
+import { CacheService } from './cache.service'
 
 export interface IAuthStatus {
   isAuthenticated: boolean
@@ -30,7 +31,7 @@ export interface IAuthService {
   getToken(): string
 }
 @Injectable()
-export abstract class AuthService implements IAuthService {
+export abstract class AuthService extends CacheService implements IAuthService {
   protected abstract authProvider(
     email: string,
     password: string
@@ -42,7 +43,7 @@ export abstract class AuthService implements IAuthService {
   readonly authStatus$ = new BehaviorSubject<IAuthStatus>(defaultAuthStatus)
   readonly currentUser$ = new BehaviorSubject<IUser>(new User())
 
-  login(email: string, password: string): Observable {
+  login(email: string, password: string): Observable<void> {
     const loginResponse$ = this.authProvider(email, password).pipe(
       map((value) => {
         const token = decode(value.accessToken)
