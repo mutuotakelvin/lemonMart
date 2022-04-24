@@ -69,6 +69,12 @@ export abstract class AuthService extends CacheService implements IAuthService {
     setTimeout(() => this.authStatus$.next(defaultAuthStatus), 0)
   }
   getToken(): string {
-    throw new Error('Method not implemented.')
+    return this.getItem('jwt') ?? ''
+  }
+  protected setToken(jwt: string) {
+    this.setItem('jwt', jwt)
+  }
+  protected clearToken() {
+    this.removeItem('jwt')
   }
 }
