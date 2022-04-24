@@ -42,7 +42,7 @@ export abstract class AuthService implements IAuthService {
   readonly authStatus$ = new BehaviorSubject<IAuthStatus>(defaultAuthStatus)
   readonly currentUser$ = new BehaviorSubject<IUser>(new User())
 
-  login(email: string, password: string): Observable<void> {
+  login(email: string, password: string): Observable {
     const loginResponse$ = this.authProvider(email, password).pipe(
       map((value) => {
         const token = decode(value.accessToken)
@@ -63,7 +63,7 @@ export abstract class AuthService implements IAuthService {
     return loginResponse$
   }
   logout(clearToken?: boolean): void {
-    throw new Error('Method not implemented.')
+    setTimeout(() => this.authStatus$.next(defaultAuthStatus), 0)
   }
   getToken(): string {
     throw new Error('Method not implemented.')
