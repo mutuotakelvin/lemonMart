@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import * as decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode'
 import {
   BehaviorSubject,
   Observable,
@@ -59,7 +59,7 @@ export abstract class AuthService extends CacheService implements IAuthService {
     const loginResponse$ = this.authProvider(email, password).pipe(
       map((value) => {
         this.setToken(value.accessToken)
-        const token = decode(value.accessToken)
+        const token = jwt_decode(value.accessToken)
         return this.transformJwtToken(token)
       }),
       tap((status) => this.authStatus$.next(status)),
@@ -90,5 +90,18 @@ export abstract class AuthService extends CacheService implements IAuthService {
   }
   protected clearToken() {
     this.removeItem('jwt')
+  }
+
+  protected hasExpiredToken(): boolean {
+    const jwt = this.getToken()
+    if (jwt) {
+      const payload = jwt_decode(jwt) as any
+      return Date.now() >= payload.exp * 1000
+    }
+    return true
+  }
+
+  protected getAuthStatusFromToken(): IAuthStatus {
+    return this.transformJwtToken(jwt_decode(this.getToken()))
   }
 }
