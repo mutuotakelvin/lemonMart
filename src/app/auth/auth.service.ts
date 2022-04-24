@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core'
 import * as decode from 'jwt-decode'
-import { BehaviorSubject, Observable, catchError, filter, throwError } from 'rxjs'
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  filter,
+  flatMap,
+  map,
+  tap,
+  throwError,
+} from 'rxjs'
 
 import { transformError } from '../common/common'
 import { IUser, User } from '../user/user/user'
@@ -46,8 +55,10 @@ export abstract class AuthService extends CacheService implements IAuthService {
   readonly currentUser$ = new BehaviorSubject<IUser>(new User())
 
   login(email: string, password: string): Observable<void> {
+    this.clearToken()
     const loginResponse$ = this.authProvider(email, password).pipe(
       map((value) => {
+        this.setToken(value.accessToken)
         const token = decode(value.accessToken)
         return this.transformJwtToken(token)
       }),
@@ -65,7 +76,10 @@ export abstract class AuthService extends CacheService implements IAuthService {
     })
     return loginResponse$
   }
-  logout(clearToken?: boolean): void {
+  logout(clearToken?: boolean) {
+    if (clearToken) {
+      this.clearToken()
+    }
     setTimeout(() => this.authStatus$.next(defaultAuthStatus), 0)
   }
   getToken(): string {
