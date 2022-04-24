@@ -114,4 +114,8 @@ export abstract class AuthService extends CacheService implements IAuthService {
   protected getAuthStatusFromToken(): IAuthStatus {
     return this.transformJwtToken(jwt_decode(this.getToken()))
   }
+
+  protected readonly resumeCurrentUser$ = this.authStatus$.pipe(
+    this.getAndUpdateUserIfAuthenticated
+  )
 }
