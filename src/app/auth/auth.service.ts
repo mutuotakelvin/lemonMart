@@ -39,7 +39,9 @@ export abstract class AuthService extends CacheService implements IAuthService {
   protected abstract transformJwtToken(token: unknown): IAuthStatus
   protected abstract getCurrentUser(): Observable<User>
 
-  constructor() {}
+  constructor() {
+    super()
+  }
   readonly authStatus$ = new BehaviorSubject<IAuthStatus>(defaultAuthStatus)
   readonly currentUser$ = new BehaviorSubject<IUser>(new User())
 
