@@ -14,7 +14,8 @@ import { InMemoryAuthService } from './auth/inmemory.service'
 import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login.component'
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component'
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SimpleDialogComponent } from './common/simple-dialog.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     PageNotFoundComponent,
     NavigationMenuComponent,
     LoginComponent,
+    SimpleDialogComponent,
   ],
   imports: [
     BrowserModule,
