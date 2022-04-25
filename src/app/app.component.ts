@@ -7,7 +7,14 @@ import { AuthService } from './auth/auth.service'
 @Component({
   selector: 'app-root',
   template: `
-    <mat-toolbar fxLayoutGap="8px" color="primary">
+    <mat-toolbar
+      *ngIf="{
+        status: authService.authStatus$ | async,
+        user: authService.currentUser$ | async
+      } as auth"
+      fxLayoutGap="8px"
+      color="primary"
+    >
       <button mat-icon-button><mat-icon>menu</mat-icon></button>
       <a mat-button routerLink="/home">
         <mat-icon svgIcon="lemon"></mat-icon>
