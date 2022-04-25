@@ -1,6 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { MediaObserver } from '@angular/flex-layout'
 import { MatIconRegistry } from '@angular/material/icon'
 import { DomSanitizer } from '@angular/platform-browser'
+import { SubSink } from 'subsink'
 
 import { AuthService } from './auth/auth.service'
 
@@ -85,16 +87,23 @@ import { AuthService } from './auth/auth.service'
     `,
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
+  private subs = new SubSink()
   constructor(
     iconRegistery: MatIconRegistry,
     sanitizer: DomSanitizer,
-    public authService: AuthService
+    public authService: AuthService,
+    public media: MediaObserver
   ) {
     iconRegistery.addSvgIcon(
       'lemon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/lemon.svg')
     )
   }
-  title = 'lemon-mart'
+  ngOnDestroy() {
+    this.subs.unsubscribe()
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.')
+  }
 }
