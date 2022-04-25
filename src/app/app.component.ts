@@ -2,6 +2,8 @@ import { Component } from '@angular/core'
 import { MatIconRegistry } from '@angular/material/icon'
 import { DomSanitizer } from '@angular/platform-browser'
 
+import { AuthService } from './auth/auth.service'
+
 @Component({
   selector: 'app-root',
   template: `
@@ -34,7 +36,11 @@ import { DomSanitizer } from '@angular/platform-browser'
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(iconRegistery: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(
+    iconRegistery: MatIconRegistry,
+    sanitizer: DomSanitizer,
+    public authService: AuthService
+  ) {
     iconRegistery.addSvgIcon(
       'lemon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/lemon.svg')
