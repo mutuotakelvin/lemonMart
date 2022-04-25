@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { MediaObserver } from '@angular/flex-layout'
 import { MatIconRegistry } from '@angular/material/icon'
 import { DomSanitizer } from '@angular/platform-browser'
+import { combineLatest, tap } from 'rxjs'
 import { SubSink } from 'subsink'
 
 import { AuthService } from './auth/auth.service'
@@ -89,6 +90,7 @@ import { AuthService } from './auth/auth.service'
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subs = new SubSink()
+  opened?: boolean
   constructor(
     iconRegistery: MatIconRegistry,
     sanitizer: DomSanitizer,
@@ -104,6 +106,23 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe()
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.')
+    this.subs.sink = combineLatest([
+      this.media.asObservable(),
+      this.authService.authStatus$,
+    ])
+      .pipe(
+        tap(([mediaValue, authStatus]) => {
+          if (!authStatus?.isAuthenticated) {
+            this.opened = false
+          } else {
+            if (mediaValue[0].mqAlias === 'xs') {
+              this.opened = false
+            } else {
+              this.opened = true
+            }
+          }
+        })
+      )
+      .subscribe()
   }
 }
