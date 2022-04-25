@@ -17,10 +17,10 @@ export class InMemoryAuthService extends AuthService {
     dateOfBirth: new Date(1998, 8, 3),
     userStatus: true,
     address: {
-      line1: 'CP',
+      line1: 'Dere',
       city: 'Machakos',
-      state: 'Dere',
-      zip: '11111',
+      state: 'CP',
+      zip: '2022',
     },
     level: 2,
     phones: [
@@ -32,14 +32,23 @@ export class InMemoryAuthService extends AuthService {
     ],
   })
 
+  constructor() {
+    super()
+    console.warn(
+      "You're using the InMemoryAuthService. Do not use this service in production."
+    )
+  }
+
   protected authProvider(
     email: string,
     password: string
   ): Observable<IServerAuthResponse> {
     email = email.toLowerCase()
+
     if (!email.endsWith('@test.com')) {
       return throwError('Failed to login! Email needs to end with @test.com.')
     }
+
     const authStatus = {
       isAuthenticated: true,
       userId: this.defaultUser._id,
@@ -51,25 +60,24 @@ export class InMemoryAuthService extends AuthService {
         ? Role.Manager
         : Role.None,
     } as IAuthStatus
+
     this.defaultUser.role = authStatus.userRole
+
     const authResponse = {
       accessToken: sign(authStatus, 'secret', {
         expiresIn: '1h',
         algorithm: 'none',
       }),
     } as IServerAuthResponse
+
     return of(authResponse)
   }
+
   protected transformJwtToken(token: IAuthStatus): IAuthStatus {
     return token
   }
+
   protected getCurrentUser(): Observable<User> {
     return of(this.defaultUser)
-  }
-  constructor() {
-    super()
-    console.warn(
-      "You're using the InMemoryAuthService. Do not use this service in production."
-    )
   }
 }
