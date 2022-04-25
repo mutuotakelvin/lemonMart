@@ -14,18 +14,19 @@ import { AuthService } from '../auth/auth.service'
     `,
   ],
   template: `
-    <div *ngIf="displayLogin">
+    <div *ngIf="(authService.authStatus$ | async)?.isAuthenticated; else doLogin">
+      <div class="mat-display-4">This is LemonMart!, The place where</div>
+      <div class="mat-display-4">
+        You get a lemon, you get a lemon, you get a lemon...
+      </div>
+      <div class="mat-display-4">Everybody gets a lemon.</div>
+    </div>
+    <ng-template #doLogin>
       <app-login></app-login>
-    </div>
-    <div *ngIf="!displayLogin">
-      <span class="mat-display-3"
-        >You get a lemon, you get a lemon, you get a lemon...</span
-      >
-    </div>
+    </ng-template>
   `,
 })
 export class HomeComponent implements OnInit {
-  displayLogin = true
   constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
