@@ -30,7 +30,13 @@ import { AuthService } from './auth/auth.service'
         matTooltip="Profile"
         aria-label="User Profile"
       >
-        <mat-icon>account_circle</mat-icon>
+        <img
+          *ngIf="auth?.user?.picture"
+          class="image-cropper"
+          [src]="auth?.user?.picture"
+          ]
+        />
+        <mat-icon *ngIf="!auth?.user?.picture">account_circle</mat-icon>
       </button>
       <button
         *ngIf="auth?.status?.isAuthenticated"
@@ -44,7 +50,18 @@ import { AuthService } from './auth/auth.service'
     </mat-toolbar>
     <router-outlet></router-outlet>
   `,
-  styleUrls: ['./app.component.css'],
+  styles: [
+    `
+      .image-cropper {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-top: -8px;
+      }
+    `,
+  ],
 })
 export class AppComponent {
   constructor(
