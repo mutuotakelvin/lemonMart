@@ -5,6 +5,7 @@ import { catchError, combineLatest, filter, tap } from 'rxjs'
 import { SubSink } from 'subsink'
 
 import { AuthService } from '../auth/auth.service'
+import { UiService } from '../common/ui.service'
 import { EmailValidation, PasswordValidation } from '../common/validations'
 
 @Component({
@@ -99,7 +100,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uiService: UiService
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', EmailValidation],
@@ -117,6 +119,7 @@ export class LoginComponent implements OnInit {
       .pipe(
         filter(([authStatus, user]) => authStatus.isAuthenticated && user?._id !== ''),
         tap(([authStatus, user]) => {
+          this.uiService.showToast(`Welcome ${user.fullName}! Role: ${user.role}`)
           this.router.navigate([this.redirectUrl || '/manager'])
         })
       )

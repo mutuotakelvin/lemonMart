@@ -16,7 +16,7 @@ export class UiService {
   showDialog(
     title: string,
     content: string,
-    okText: 'ok',
+    okText = 'ok',
     cancelText?: string,
     customerConfig?: MatDialogConfig
   ): Observable<boolean> {
