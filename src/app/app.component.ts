@@ -15,13 +15,16 @@ import { AuthService } from './auth/auth.service'
       fxLayoutGap="8px"
       color="primary"
     >
-      <button mat-icon-button><mat-icon>menu</mat-icon></button>
+      <button *ngIf="auth?.status?.isAuthenticated" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
       <a mat-button routerLink="/home">
         <mat-icon svgIcon="lemon"></mat-icon>
         <span class="mat-h2">LemonMart</span></a
       >
       <span class="flex-spacer"></span>
       <button
+        *ngIf="auth?.status?.isAuthenticated"
         mat-mini-fab
         routerLink="/user/profile"
         matTooltip="Profile"
@@ -30,6 +33,7 @@ import { AuthService } from './auth/auth.service'
         <mat-icon>account_circle</mat-icon>
       </button>
       <button
+        *ngIf="auth?.status?.isAuthenticated"
         mat-mini-fab
         routerLink="/user/logout"
         matTooltip="Logout"
