@@ -14,15 +14,18 @@ import { AuthService } from '../auth/auth.service'
     `,
   ],
   template: `
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <span class="mat-display-2">Hello, Kelvin!</span>
-      <button mat-raised-button color="primary" (click)="login()">
-        Login as manager
-      </button>
+    <div *ngIf="displayLogin">
+      <app-login></app-login>
+    </div>
+    <div *ngIf="!displayLogin">
+      <span class="mat-display-3"
+        >You get a lemon, you get a lemon, you get a lemon...</span
+      >
     </div>
   `,
 })
 export class HomeComponent implements OnInit {
+  displayLogin = true
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}

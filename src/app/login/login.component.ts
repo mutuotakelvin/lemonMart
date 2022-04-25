@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service'
       <mat-card fxFlex="400px">
         <mat-card-header>
           <mat-card-title>
-            <div class="mat-headline">Hello, Limoncu!</div>
+            <div class="mat-headline">Hello, Kelvin!</div>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
